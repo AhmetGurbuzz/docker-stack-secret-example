@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  another-service:
+    image: another
+    hostname: another
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    deploy:
+      replicas: 1
+    volumes:
+      - sidecar:/sidecar:r
+volumes:
+  sidecar:
+    name: sidecar

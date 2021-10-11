@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  kerberos-service:
+    image: kerberos-sidecar
+    hostname: kerberos-sidecar
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - sidecar:/sidecar:rwx
+    secrets:
+      - source: someone
+        target: someone
+volumes:
+  sidecar:
+    name: sidecar
+secrets:
+  someone:
+    external: true
